@@ -38,6 +38,18 @@ function writePassword() {
     }
   while (validResponse === false);
 
+  // Check whether the user wants numbers to be included
+  do {
+    let userResponse = prompt("Include numbers? (Y/N)", "")
+    if (userResponse.toUpperCase()=="Y" || userResponse.toUpperCase()=="YES") {
+      characterPool = characterPool + numbers;
+      validResponse = true;
+    } else if (userResponse.toUpperCase()=="N" || userResponse.toUpperCase()=="NO") {
+      validResponse = true;
+    }
+  }
+  while (validResponse === false);
+  
   console.log(characterPool);
 
 
