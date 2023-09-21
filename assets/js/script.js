@@ -16,7 +16,7 @@ function writePassword() {
 
   // Check whether the user wants lowercase letters to be included
   do {
-    let userResponse = prompt("Include lowercase letters? (Y/N)", "")
+    userResponse = prompt("Include lowercase letters? (Y/N)", "")
     if (userResponse.toUpperCase()=="Y" || userResponse.toUpperCase()=="YES") {
       characterPool = characterPool + lowercaseAlpha;
       validResponse = true;
@@ -27,8 +27,9 @@ function writePassword() {
   while (validResponse === false);
 
   // Check whether the user wants uppercase letters to be included
+  validResponse = false;
   do {
-      let userResponse = prompt("Include uppercase letters? (Y/N)", "")
+      userResponse = prompt("Include uppercase letters? (Y/N)", "")
       if (userResponse.toUpperCase()=="Y" || userResponse.toUpperCase()=="YES") {
         characterPool = characterPool + uppercaseAlpha;
         validResponse = true;
@@ -39,8 +40,9 @@ function writePassword() {
   while (validResponse === false);
 
   // Check whether the user wants numbers to be included
+  validResponse = false;
   do {
-    let userResponse = prompt("Include numbers? (Y/N)", "")
+    userResponse = prompt("Include numbers? (Y/N)", "")
     if (userResponse.toUpperCase()=="Y" || userResponse.toUpperCase()=="YES") {
       characterPool = characterPool + numbers;
       validResponse = true;
@@ -49,7 +51,20 @@ function writePassword() {
     }
   }
   while (validResponse === false);
-  
+
+  // Check whether the user wants special characters to be included
+  validResponse = false;
+  do {
+    userResponse = prompt("Include special characters? (Y/N)", "")
+    if (userResponse.toUpperCase()=="Y" || userResponse.toUpperCase()=="YES") {
+      characterPool = characterPool + specialChars;
+      validResponse = true;
+    } else if (userResponse.toUpperCase()=="N" || userResponse.toUpperCase()=="NO") {
+      validResponse = true;
+    }
+  }
+  while (validResponse === false);
+
   console.log(characterPool);
 
 
