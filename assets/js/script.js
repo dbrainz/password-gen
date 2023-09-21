@@ -3,7 +3,7 @@ var generateBtn = document.querySelector("#generate");
 
 // Write password to the #password input
 function writePassword() {
-  //var password = generatePassword();
+  var password = "";
   var passwordText = document.querySelector("#password");
   var specialChars = "!#$%&()*+,-./:;<=>?@[]^_`{|}~";
   var lowercaseAlpha = "abcdefghijklmnopqrstuvwxyz";
@@ -24,6 +24,18 @@ function writePassword() {
       validResponse = true;
     }
   }
+  while (validResponse === false);
+
+  // Check whether the user wants uppercase letters to be included
+  do {
+      let userResponse = prompt("Include uppercase letters? (Y/N)", "")
+      if (userResponse.toUpperCase()=="Y" || userResponse.toUpperCase()=="YES") {
+        characterPool = characterPool + uppercaseAlpha;
+        validResponse = true;
+      } else if (userResponse.toUpperCase()=="N" || userResponse.toUpperCase()=="NO") {
+        validResponse = true;
+      }
+    }
   while (validResponse === false);
 
   console.log(characterPool);
