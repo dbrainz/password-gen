@@ -4,6 +4,7 @@ var generateBtn = document.querySelector("#generate");
 // Write password to the #password input
 function writePassword() {
   var password = "";
+  var passwordLength = 0;
   var passwordText = document.querySelector("#password");
   var specialChars = "!#$%&()*+,-./:;<=>?@[]^_`{|}~";
   var lowercaseAlpha = "abcdefghijklmnopqrstuvwxyz";
@@ -14,58 +15,40 @@ function writePassword() {
 
   var validResponse = false;
 
-  // Check whether the user wants lowercase letters to be included
-  do {
-    userResponse = prompt("Include lowercase letters? (Y/N)", "")
-    if (userResponse.toUpperCase()=="Y" || userResponse.toUpperCase()=="YES") {
-      characterPool = characterPool + lowercaseAlpha;
-      validResponse = true;
-    } else if (userResponse.toUpperCase()=="N" || userResponse.toUpperCase()=="NO") {
-      validResponse = true;
-    }
-  }
-  while (validResponse === false);
-
-  // Check whether the user wants uppercase letters to be included
-  validResponse = false;
-  do {
-      userResponse = prompt("Include uppercase letters? (Y/N)", "")
+  function inputLoop(promptStr, poolAddition) {
+    do {
+      userResponse = prompt(promptStr, "");
       if (userResponse.toUpperCase()=="Y" || userResponse.toUpperCase()=="YES") {
-        characterPool = characterPool + uppercaseAlpha;
+        characterPool = characterPool + poolAddition;
         validResponse = true;
       } else if (userResponse.toUpperCase()=="N" || userResponse.toUpperCase()=="NO") {
         validResponse = true;
       }
     }
-  while (validResponse === false);
+    while (validResponse === false);
+  }
+  
 
-  // Check whether the user wants numbers to be included
+
+  inputLoop("Include lowercase letters? (Y/N)", lowercaseAlpha);
+  inputLoop("Include uppercase letters? (Y/N)", uppercaseAlpha);
+  inputLoop("Include numbers? (Y/N)", numbers);
+  inputLoop("Include special characters? (Y/N)", specialChars);
+
+  // Ask user for length of password - Minimum length: 8 Maximum length: 128
   validResponse = false;
   do {
-    userResponse = prompt("Include numbers? (Y/N)", "")
-    if (userResponse.toUpperCase()=="Y" || userResponse.toUpperCase()=="YES") {
-      characterPool = characterPool + numbers;
+    userResponse = prompt("Password Length (8-128)", "")
+    if (userResponse >= 8 && userResponse<=128) {
+      passwordLength = userResponse;
       validResponse = true;
-    } else if (userResponse.toUpperCase()=="N" || userResponse.toUpperCase()=="NO") {
-      validResponse = true;
-    }
+    } 
   }
   while (validResponse === false);
 
-  // Check whether the user wants special characters to be included
-  validResponse = false;
-  do {
-    userResponse = prompt("Include special characters? (Y/N)", "")
-    if (userResponse.toUpperCase()=="Y" || userResponse.toUpperCase()=="YES") {
-      characterPool = characterPool + specialChars;
-      validResponse = true;
-    } else if (userResponse.toUpperCase()=="N" || userResponse.toUpperCase()=="NO") {
-      validResponse = true;
-    }
+  for (i=0; i<passwordLength; i++) {
+    password += characterPool[Math.floor(Math.random() * characterPool.length)];
   }
-  while (validResponse === false);
-
-  console.log(characterPool);
 
 
 
