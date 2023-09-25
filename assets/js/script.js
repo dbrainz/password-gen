@@ -1,7 +1,8 @@
-// Assignment Code
+
 var generateBtn = document.querySelector("#generate");
 
-// Write password to the #password input
+// writePasword is called when user clicks the "Generate" button on the page
+// Asks the user which characters to include, gets desired length of the password, and generates the password and pushes it to the page
 function writePassword() {
   var password = "";
   var passwordLength = 0;
@@ -15,6 +16,9 @@ function writePassword() {
 
   var validResponse = false;
 
+  // Main input function
+  // promptStr - the prompt that the user will be given
+  // poolAdditoon - the string to append to characterPool if the user answers yes to the prompt
   function inputLoop(promptStr, poolAddition) {
     do {
       userResponse = prompt(promptStr, "");
@@ -28,14 +32,16 @@ function writePassword() {
     while (validResponse === false);
   }
   
-
-
-  inputLoop("Include lowercase letters? (Y/N)", lowercaseAlpha);
-  inputLoop("Include uppercase letters? (Y/N)", uppercaseAlpha);
-  inputLoop("Include numbers? (Y/N)", numbers);
-  inputLoop("Include special characters? (Y/N)", specialChars);
-
-  // Ask user for length of password - Minimum length: 8 Maximum length: 128
+  // Main input loop - repeats if the user doesn't pick to add any of the choices to the password character pool
+  do {
+    inputLoop("Include lowercase letters? (Y/N)", lowercaseAlpha);
+    inputLoop("Include uppercase letters? (Y/N)", uppercaseAlpha);
+    inputLoop("Include numbers? (Y/N)", numbers);
+    inputLoop("Include special characters? (Y/N)", specialChars);
+  }
+  while (characterPool=="");
+  
+  // Ask user for length of password - Minimum length: 8 Maximum length: 128 - question repeats until they enter a valid length
   validResponse = false;
   do {
     userResponse = prompt("Password Length (8-128)", "")
@@ -46,16 +52,12 @@ function writePassword() {
   }
   while (validResponse === false);
 
+  // Generate password from the pool of characters selected by the user
   for (i=0; i<passwordLength; i++) {
     password += characterPool[Math.floor(Math.random() * characterPool.length)];
   }
 
-
-
-
   passwordText.value = password;
-
 }
 
-// Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
